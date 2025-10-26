@@ -1,7 +1,7 @@
 {
-  "name": "mental-health-app",
+  "name": "mental-spa",
   "version": "1.0.0",
-  "description": "Mental Health App Prototype",
+  "description": "Mental Spa - Wellness Sanctuary Prototype",
   "main": "index.js",
   "scripts": {
     "start": "expo start",

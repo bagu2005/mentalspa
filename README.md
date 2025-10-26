@@ -1,12 +1,12 @@
-# Mental Health App Prototype
+# Mental Spa - Prototype
 
-A comprehensive mental health support application designed for students and young adults, featuring pod booking, peer support, crisis intervention, and psychological first aid training.
+A comprehensive mental wellness sanctuary designed for students and young adults, featuring meditation pod booking, peer support, crisis intervention, and psychological first aid training.
 
 ## Features
 
 ### Core Functionality
 - **Home Dashboard**: Personalized dashboard with mood tracking and quick actions
-- **Pod Booking**: Book private spaces for relaxation and mindfulness sessions
+- **Meditation Pod Booking**: Book private meditation spaces for mindfulness and relaxation
 - **Peer Support**: Connect with peer supporters and professional counselors
 - **Crisis Support**: Immediate access to crisis intervention resources
 - **Learning Section**: PFA (Psychological First Aid) training with progress tracking

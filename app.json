@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mental Health App",
-    "slug": "mental-health-app",
+    "name": "Mental Spa",
+    "slug": "mental-spa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
