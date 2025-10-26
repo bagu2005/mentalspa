@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Spa - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #4A90E2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .nav {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .nav-item {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-item.active {
+            border-bottom-color: #4A90E2;
+            color: #4A90E2;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .mood-tracker {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mood-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        
+        .mood-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #e9ecef;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .mood-btn.selected {
+            border-color: #4A90E2;
+            background: #E3F2FD;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .action-btn {
+            background: #4A90E2;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn.purple {
+            background: #8E44AD;
+        }
+        
+        .crisis-banner {
+            background: #FF6B35;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #4A90E2;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #357ABD;
+        }
+        
+        .appointment-card {
+            background: #8E44AD;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .qr-placeholder {
+            background: white;
+            color: #2c3e50;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        #qr-display {
+            font-family: 'Courier New', monospace;
+            line-height: 0.8;
+            letter-spacing: 0;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 14px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mental Spa</h1>
+            <p>Your wellness sanctuary</p>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-item active" onclick="showScreen('home')">🏠 Home</div>
+            <div class="nav-item" onclick="showScreen('pod')">🧘 Pod</div>
+            <div class="nav-item" onclick="showScreen('support')">💬 Support</div>
+            <div class="nav-item" onclick="showScreen('learn')">📚 Learn</div>
+            <div class="nav-item" onclick="showScreen('profile')">👤 Profile</div>
+        </div>
+        
+        <div class="content">
+            <!-- Home Screen -->
+            <div id="home-screen">
+                <div class="mood-tracker">
+                    <h3>How are you feeling today?</h3>
+                    <div class="mood-buttons">
+                        <div class="mood-btn" onclick="selectMood(this)">😢</div>
+                        <div class="mood-btn" onclick="selectMood(this)">😐</div>
+                        <div class="mood-btn" onclick="selectMood(this)">😊</div>
+                        <div class="mood-btn" onclick="selectMood(this)">😄</div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <div class="action-btn" onclick="showScreen('pod')">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px;">🕯️</div>
+                        <h4>Book a Pod</h4>
+                        <p>Private meditation space</p>
+                    </div>
+                    <div class="action-btn purple" onclick="showScreen('support')">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px;">💬</div>
+                        <h4>Counselling</h4>
+                        <p>Professional support</p>
+                    </div>
+                    <div class="action-btn" onclick="showScreen('appointments')">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px;">📅</div>
+                        <h4>My Appointments</h4>
+                        <p>View sessions</p>
+                    </div>
+                    <div class="action-btn purple" onclick="showScreen('learn')">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px;">🎓</div>
+                        <h4>PFA Training</h4>
+                        <p>Learn & grow</p>
+                    </div>
+                </div>
+                
+                <div class="crisis-banner" onclick="showScreen('crisis')">
+                    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 28px; animation: pulse 2s infinite;">🚨</div>
+                        <div>
+                            <h3>🚨 Need help now?</h3>
+                            <p>Tap here for Crisis Support</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center;">
+                    <p><em>Take a deep breath; you are doing your best.</em></p>
+                    <p style="margin-top: 10px;">🌸 2 pod sessions completed this week</p>
+                </div>
+            </div>
+            
+            <!-- Pod Booking Screen -->
+            <div id="pod-screen" class="hidden">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 100%; max-width: 300px; height: 120px; border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 48px;">🕯️</div>
+                    <h2>Book a Pod</h2>
+                    <p>Find a peaceful meditation space to center yourself.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" value="Library Level 2" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" value="Tue 27" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Time Slot</label>
+                    <input type="text" value="10:00 - 10:15 AM" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Pod Option</label>
+                    <input type="text" value="Guided Meditation (15 min)" readonly>
+                </div>
+                
+                <button class="btn" onclick="confirmBooking()">Confirm Booking</button>
+                <p style="text-align: center; margin-top: 10px; color: #666;">
+                    You'll receive a QR code on your Appointments page.
+                </p>
+            </div>
+            
+            <!-- Appointments Screen -->
+            <div id="appointments-screen" class="hidden">
+                <h2>My Appointments</h2>
+                <p>View your upcoming sessions and access your QR code.</p>
+                
+                <div class="appointment-card">
+                    <h3>🕯️ Meditation Pod - Library Level 2</h3>
+                    <p>Today, 2:00 PM – 2:15 PM</p>
+                    <button class="btn" onclick="generateQR()" style="margin-top: 15px;">Generate QR Code</button>
+                    <p style="font-size: 14px; margin-top: 10px;">Show this at the Pod to begin your session.</p>
+                    
+                    <div id="qr-code" class="qr-placeholder hidden">
+                        <h3>📱 Your Session QR Code</h3>
+                        <div id="qr-display" style="font-size: 48px; margin: 20px 0; font-family: monospace; background: white; padding: 20px; border-radius: 8px; border: 2px solid #333;">
+                            <!-- QR Code will be generated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px;">
+                    <h3>Other upcomings</h3>
+                    <div style="padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                        <strong>💬 Counselling Session</strong><br>
+                        <small>28 Oct, 11:00 AM</small>
+                    </div>
+                    <div style="padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                        <strong>👥 Peer Support</strong><br>
+                        <small>30 Oct, 3:00 PM</small>
+                    </div>
+                    <div style="padding: 15px 0;">
+                        <strong>🕯️ Meditation Pod</strong><br>
+                        <small>1 Nov, 5:15 PM</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Support Screen -->
+            <div id="support-screen" class="hidden">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=120&fit=crop&crop=center" alt="Support" style="width: 100%; max-width: 300px; height: 120px; border-radius: 12px; object-fit: cover; margin-bottom: 15px;">
+                    <h2>Talk to Someone</h2>
+                    <p>You're not alone. Choose how you'd like to connect.</p>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin: 20px 0;">
+                    <button class="btn" style="flex: 1;">Counsellor</button>
+                    <button class="btn purple" style="flex: 1;">Peer Support</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Tell us what's on your mind...</label>
+                    <textarea rows="4" placeholder="Share your thoughts..."></textarea>
+                </div>
+                
+                <button class="btn">Start Chat</button>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" onclick="showScreen('crisis')" style="color: #4A90E2;">Need immediate help? Go to Crisis Support.</a>
+                </div>
+            </div>
+            
+            <!-- Crisis Support Screen -->
+            <div id="crisis-screen" class="hidden">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 100%; max-width: 300px; height: 120px; border-radius: 12px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 48px; animation: pulse 2s infinite;">🚨</div>
+                    <h2>🚨 Crisis Support</h2>
+                </div>
+                
+                <div class="crisis-banner" style="background: #FF6B35; margin-bottom: 20px;">
+                    <h3>CRISIS SUPPORT</h3>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>Contacts</h3>
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin: 10px 0;">
+                        <strong>📞 555-123-4567</strong>
+                    </div>
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin: 10px 0;">
+                        <strong>💬 Text SUPPORT to 12345</strong>
+                    </div>
+                </div>
+                
+                <div style="background: #FFE6E6; padding: 20px; border-radius: 12px; border-left: 4px solid #E91E63;">
+                    <h4 style="color: #E91E63;">In Case of Emergency</h4>
+                    <p style="color: #666; margin-top: 10px;">
+                        If you or someone you know is in immediate danger, please call 911 or go to your nearest emergency room.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Learning Screen -->
+            <div id="learn-screen" class="hidden">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=120&fit=crop&crop=center" alt="Learning" style="width: 100%; max-width: 300px; height: 120px; border-radius: 12px; object-fit: cover; margin-bottom: 15px;">
+                    <h2>Learn & Train</h2>
+                    <p>Build empathy and resilience through short PFA lessons.</p>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; margin: 20px 0;">
+                    <h3>Your Progress: 20%</h3>
+                    <div style="width: 120px; height: 120px; border-radius: 50%; background: #f0f0f0; margin: 20px auto; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; width: 20%; height: 100%; background: #8E44AD;"></div>
+                        <span style="font-size: 24px; font-weight: bold; z-index: 1;">20%</span>
+                    </div>
+                    <p>Complete all 5 levels to earn your Mindfulness Badge.</p>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px;">
+                    <h3>PFA Training Levels</h3>
+                    
+                    <!-- Level 1: Understanding Emotions -->
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin: 10px 0; cursor: pointer;" onclick="openLevel(1)">
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 15px;">🧠</span>
+                            <div style="flex: 1;">
+                                <strong>Level 1: Understanding Emotions</strong><br>
+                                <small>Completed ✓</small>
+                            </div>
+                            <span>▶</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 2: Active Listening -->
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin: 10px 0; cursor: pointer;" onclick="openLevel(2)">
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 15px;">👂</span>
+                            <div style="flex: 1;">
+                                <strong>Level 2: Active Listening</strong><br>
+                                <small>In Progress (60%)</small>
+                            </div>
+                            <span>▶</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 3: Offering Support -->
+                    <div style="padding: 15px; background: #f5f5f5; border-radius: 8px; margin: 10px 0; display: flex; align-items: center; opacity: 0.5;">
+                        <span style="margin-right: 15px;">🎀</span>
+                        <div style="flex: 1;">
+                            <strong>Level 3: Offering Support</strong><br>
+                            <small>Locked 🔒</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 4: Empathy in Action -->
+                    <div style="padding: 15px; background: #f5f5f5; border-radius: 8px; margin: 10px 0; display: flex; align-items: center; opacity: 0.5;">
+                        <span style="margin-right: 15px;">❤️</span>
+                        <div style="flex: 1;">
+                            <strong>Level 4: Empathy in Action</strong><br>
+                            <small>Locked 🔒</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 5: Self-Care & Reflection -->
+                    <div style="padding: 15px; background: #f5f5f5; border-radius: 8px; margin: 10px 0; display: flex; align-items: center; opacity: 0.5;">
+                        <span style="margin-right: 15px;">🤲</span>
+                        <div style="flex: 1;">
+                            <strong>Level 5: Self-Care & Reflection</strong><br>
+                            <small>Locked 🔒</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level Modules Screen -->
+            <div id="level-modules-screen" class="hidden">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <button onclick="showScreen('learn')" style="background: none; border: none; font-size: 24px; margin-right: 15px; cursor: pointer;">←</button>
+                    <h2 id="level-title">Level Modules</h2>
+                </div>
+                
+                <div id="level-content">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="hidden">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=120&fit=crop&crop=center" alt="Profile" style="width: 100%; max-width: 300px; height: 120px; border-radius: 12px; object-fit: cover; margin-bottom: 15px;">
+                    <h2>Profile</h2>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #4A90E2; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                            <span style="color: white; font-size: 24px;">👤</span>
+                        </div>
+                        <div>
+                            <h3>John Doe</h3>
+                            <p>john.doe@university.edu</p>
+                            <small style="color: #27AE60;">Student • Active</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 12px;">
+                    <h3>Your Progress</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #27AE60;">12</div>
+                            <small>Sessions Completed</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #F39C12;">7</div>
+                            <small>Days Streak</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #4A90E2;">40%</div>
+                            <small>PFA Progress</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #8E44AD;">25</div>
+                            <small>Journal Entries</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenName) {
+            // Hide all screens
+            const screens = document.querySelectorAll('[id$="-screen"]');
+            screens.forEach(screen => screen.classList.add('hidden'));
+            
+            // Show selected screen
+            document.getElementById(screenName + '-screen').classList.remove('hidden');
+            
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function selectMood(btn) {
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+        
+        function confirmBooking() {
+            alert('Booking confirmed! You\'ll receive a QR code on your Appointments page.');
+            showScreen('appointments');
+        }
+        
+        function generateQR() {
+            document.getElementById('qr-code').classList.remove('hidden');
+            
+            // Generate random QR code data
+            const randomId = Math.random().toString(36).substring(2, 15);
+            const timestamp = new Date().toISOString().replace(/[-:]/g, '').substring(0, 14);
+            const qrData = `POD_${randomId}_LIBRARY_L2_${timestamp}`;
+            
+            // Generate QR code using QR Server API
+            const qrDisplay = document.getElementById('qr-display');
+            qrDisplay.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(qrData)}" alt="QR Code" style="width: 100%; height: 100%; object-fit: contain;">`;
+        }
+        
+        function openLevel(levelNumber) {
+            if (levelNumber === 3 || levelNumber === 4 || levelNumber === 5) {
+                alert('This level is locked. Complete the previous levels first.');
+                return;
+            }
+            
+            // Hide all screens
+            const screens = document.querySelectorAll('[id$="-screen"]');
+            screens.forEach(screen => screen.classList.add('hidden'));
+            
+            // Show level modules screen
+            document.getElementById('level-modules-screen').classList.remove('hidden');
+            
+            // Load level content
+            loadLevelContent(levelNumber);
+        }
+        
+        function loadLevelContent(levelNumber) {
+            const levelContent = document.getElementById('level-content');
+            const levelTitle = document.getElementById('level-title');
+            
+            const levels = {
+                1: {
+                    title: "Level 1: Understanding Emotions",
+                    modules: [
+                        {
+                            title: "Module 1.1: What are Emotions?",
+                            description: "Learn the basics of emotional awareness",
+                            duration: "5 min",
+                            completed: true
+                        },
+                        {
+                            title: "Module 1.2: Emotional Vocabulary",
+                            description: "Expand your emotional vocabulary",
+                            duration: "8 min",
+                            completed: true
+                        },
+                        {
+                            title: "Module 1.3: Recognizing Emotions in Others",
+                            description: "Practice identifying emotions in facial expressions",
+                            duration: "10 min",
+                            completed: true
+                        }
+                    ]
+                },
+                2: {
+                    title: "Level 2: Active Listening",
+                    modules: [
+                        {
+                            title: "Module 2.1: The Art of Listening",
+                            description: "Learn the fundamentals of active listening",
+                            duration: "6 min",
+                            completed: true
+                        },
+                        {
+                            title: "Module 2.2: Non-Verbal Communication",
+                            description: "Understand body language and tone",
+                            duration: "7 min",
+                            completed: false
+                        },
+                        {
+                            title: "Module 2.3: Empathetic Responses",
+                            description: "Practice responding with empathy",
+                            duration: "9 min",
+                            completed: false
+                        },
+                        {
+                            title: "Module 2.4: Listening Exercise",
+                            description: "Interactive listening practice session",
+                            duration: "12 min",
+                            completed: false
+                        }
+                    ]
+                }
+            };
+            
+            const level = levels[levelNumber];
+            if (!level) return;
+            
+            levelTitle.textContent = level.title;
+            
+            let content = `
+                <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>📚 Course Modules</h3>
+                    <p>Complete all modules to finish this level.</p>
+                </div>
+            `;
+            
+            level.modules.forEach((module, index) => {
+                const status = module.completed ? '✅ Completed' : '⏳ Pending';
+                const statusColor = module.completed ? '#27AE60' : '#F39C12';
+                
+                content += `
+                    <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px; cursor: pointer;" onclick="openModule(${levelNumber}, ${index})">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 5px 0;">${module.title}</h4>
+                                <p style="margin: 0 0 5px 0; color: #666;">${module.description}</p>
+                                <small style="color: #999;">Duration: ${module.duration}</small>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: ${statusColor}; font-weight: bold; margin-bottom: 5px;">${status}</div>
+                                <span style="font-size: 18px;">▶</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            levelContent.innerHTML = content;
+        }
+        
+        function openModule(levelNumber, moduleIndex) {
+            const modules = {
+                1: [
+                    {
+                        title: "What are Emotions?",
+                        content: `
+                            <div style="background: white; padding: 20px; border-radius: 12px;">
+                                <h3>🧠 What are Emotions?</h3>
+                                <p>Emotions are complex psychological states that involve three distinct components:</p>
+                                <ul style="margin: 15px 0;">
+                                    <li><strong>Subjective experience:</strong> How you feel inside</li>
+                                    <li><strong>Physiological response:</strong> What happens in your body</li>
+                                    <li><strong>Behavioral response:</strong> How you act</li>
+                                </ul>
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                                    <h4>💡 Key Takeaway</h4>
+                                    <p>Understanding emotions helps us connect better with others and manage our own mental health.</p>
+                                </div>
+                                <button class="btn" onclick="completeModule(1, 0)" style="margin-top: 15px;">Mark as Complete</button>
+                            </div>
+                        `
+                    },
+                    {
+                        title: "Emotional Vocabulary",
+                        content: `
+                            <div style="background: white; padding: 20px; border-radius: 12px;">
+                                <h3>📝 Emotional Vocabulary</h3>
+                                <p>Expanding your emotional vocabulary helps you better understand and communicate your feelings.</p>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                                    <div style="background: #FFE6E6; padding: 15px; border-radius: 8px;">
+                                        <h4>😢 Sadness</h4>
+                                        <p>Melancholy, Grief, Despair, Loneliness</p>
+                                    </div>
+                                    <div style="background: #FFF2E6; padding: 15px; border-radius: 8px;">
+                                        <h4>😠 Anger</h4>
+                                        <p>Frustration, Rage, Irritation, Fury</p>
+                                    </div>
+                                    <div style="background: #E6F3FF; padding: 15px; border-radius: 8px;">
+                                        <h4>😰 Fear</h4>
+                                        <p>Anxiety, Worry, Panic, Terror</p>
+                                    </div>
+                                    <div style="background: #E6FFE6; padding: 15px; border-radius: 8px;">
+                                        <h4>😊 Joy</h4>
+                                        <p>Happiness, Elation, Contentment, Bliss</p>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="completeModule(1, 1)" style="margin-top: 15px;">Mark as Complete</button>
+                            </div>
+                        `
+                    }
+                ],
+                2: [
+                    {
+                        title: "The Art of Listening",
+                        content: `
+                            <div style="background: white; padding: 20px; border-radius: 12px;">
+                                <h3>👂 The Art of Listening</h3>
+                                <p>Active listening is a communication technique that requires the listener to fully concentrate, understand, respond, and remember what is being said.</p>
+                                
+                                <h4>🎯 Key Principles:</h4>
+                                <ol style="margin: 15px 0;">
+                                    <li><strong>Give full attention:</strong> Put away distractions</li>
+                                    <li><strong>Show you're listening:</strong> Use body language and verbal cues</li>
+                                    <li><strong>Provide feedback:</strong> Reflect and paraphrase</li>
+                                    <li><strong>Defer judgment:</strong> Don't interrupt or criticize</li>
+                                    <li><strong>Respond appropriately:</strong> Be honest and respectful</li>
+                                </ol>
+                                
+                                <div style="background: #E8F5E8; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                                    <h4>💡 Practice Tip</h4>
+                                    <p>Try the "2-minute rule" - listen for 2 full minutes without responding, just to understand.</p>
+                                </div>
+                                
+                                <button class="btn" onclick="completeModule(2, 0)" style="margin-top: 15px;">Mark as Complete</button>
+                            </div>
+                        `
+                    }
+                ]
+            };
+            
+            const module = modules[levelNumber][moduleIndex];
+            if (!module) return;
+            
+            // Hide all screens
+            const screens = document.querySelectorAll('[id$="-screen"]');
+            screens.forEach(screen => screen.classList.add('hidden'));
+            
+            // Show module content
+            document.getElementById('level-modules-screen').classList.remove('hidden');
+            document.getElementById('level-content').innerHTML = module.content;
+        }
+        
+        function completeModule(levelNumber, moduleIndex) {
+            alert('Module completed! Great job! 🎉');
+            // In a real app, this would save progress to a database
+            showScreen('learn');
+        }
+    </script>
+</body>
+</html>
