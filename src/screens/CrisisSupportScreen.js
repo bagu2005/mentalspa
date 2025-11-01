@@ -13,11 +13,11 @@ import { Ionicons } from '@expo/vector-icons';
 const CrisisSupportScreen = () => {
   const handleCrisisSupport = () => {
     Alert.alert(
-      'Crisis Support',
-      'You are being connected to immediate crisis support. Please stay on the line.',
+      'NTU Crisis Support',
+      'Calling NTU Psychological Crisis Hotline: 6514-1911',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Call Now', onPress: () => Linking.openURL('tel:5551234567') },
+        { text: 'Call Now', onPress: () => Linking.openURL('tel:65141911') },
       ]
     );
   };
@@ -34,11 +34,22 @@ const CrisisSupportScreen = () => {
   };
 
   const handlePhoneCall = () => {
-    Linking.openURL('tel:5551234567');
+    Alert.alert(
+      'NTU Crisis Hotline',
+      'Calling NTU Psychological Crisis Hotline: 6514-1911',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Call Now', onPress: () => Linking.openURL('tel:65141911') },
+      ]
+    );
   };
 
   const handleTextMessage = () => {
-    Linking.openURL('sms:12345&body=SUPPORT');
+    Alert.alert(
+      'Emergency Text Support',
+      'For immediate support, call: 6514-1911 (NTU Crisis Hotline) or 1800 221 4444 (SOS 24hr)',
+      [{ text: 'OK' }]
+    );
   };
 
   return (
@@ -104,19 +115,22 @@ const CrisisSupportScreen = () => {
       </TouchableOpacity>
 
       <View style={styles.contactsSection}>
-        <Text style={styles.contactsTitle}>Contacts</Text>
+        <Text style={styles.contactsTitle}>Quick Emergency Contacts</Text>
         
         <TouchableOpacity style={styles.contactButton} onPress={handlePhoneCall}>
           <View style={styles.contactContent}>
-            <Ionicons name="call" size={24} color="#27AE60" />
-            <Text style={styles.contactText}>555-123-4567</Text>
+            <Ionicons name="call" size={24} color="#E91E63" />
+            <Text style={styles.contactText}>NTU Crisis Hotline: 6514-1911</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.contactButton} onPress={handleTextMessage}>
+        <TouchableOpacity 
+          style={styles.contactButton} 
+          onPress={() => Linking.openURL('tel:18002214444')}
+        >
           <View style={styles.contactContent}>
-            <Ionicons name="chatbubble" size={24} color="#4A90E2" />
-            <Text style={styles.contactText}>Text SUPPORT to 12345</Text>
+            <Ionicons name="call" size={24} color="#FF6B35" />
+            <Text style={styles.contactText}>SOS 24hr: 1800 221 4444</Text>
           </View>
         </TouchableOpacity>
       </View>
