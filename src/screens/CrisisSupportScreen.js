@@ -47,6 +47,20 @@ const CrisisSupportScreen = () => {
         <Text style={styles.title}>Crisis Support</Text>
       </View>
 
+      <View style={styles.quickResources}>
+        <Text style={styles.quickResourcesTitle}>Quick Access to Resources</Text>
+        <TouchableOpacity 
+          style={styles.quickResourceButton}
+          onPress={() => {
+            // Scroll to resources section (though we'll just show them)
+            Alert.alert('Scroll Down', 'Please scroll down to see all resources: NTU Resources, Community Resources, and Virtual Resources');
+          }}
+        >
+          <Ionicons name="arrow-down-circle" size={24} color="#4A90E2" />
+          <Text style={styles.quickResourceText}>View All Resources Below ↓</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity style={styles.crisisButton} onPress={handleCrisisSupport}>
         <View style={styles.crisisButtonContent}>
           <Ionicons name="warning" size={32} color="white" />
@@ -255,6 +269,34 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#2c3e50',
+  },
+  quickResources: {
+    backgroundColor: '#E3F2FD',
+    margin: 15,
+    marginTop: 0,
+    padding: 15,
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4A90E2',
+  },
+  quickResourcesTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 10,
+  },
+  quickResourceButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 8,
+  },
+  quickResourceText: {
+    fontSize: 14,
+    color: '#4A90E2',
+    marginLeft: 10,
+    fontWeight: '600',
   },
   crisisButton: {
     backgroundColor: '#FF6B35',
