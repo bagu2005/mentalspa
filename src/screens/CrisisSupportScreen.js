@@ -47,45 +47,6 @@ const CrisisSupportScreen = () => {
         <Text style={styles.title}>Crisis Support</Text>
       </View>
 
-      <View style={styles.quickResources}>
-        <Text style={styles.quickResourcesTitle}>Quick Access to Resources</Text>
-        <TouchableOpacity 
-          style={styles.quickResourceButton}
-          onPress={() => {
-            // Scroll to resources section (though we'll just show them)
-            Alert.alert('Scroll Down', 'Please scroll down to see all resources: NTU Resources, Community Resources, and Virtual Resources');
-          }}
-        >
-          <Ionicons name="arrow-down-circle" size={24} color="#4A90E2" />
-          <Text style={styles.quickResourceText}>View All Resources Below ↓</Text>
-        </TouchableOpacity>
-      </View>
-
-      <TouchableOpacity style={styles.crisisButton} onPress={handleCrisisSupport}>
-        <View style={styles.crisisButtonContent}>
-          <Ionicons name="warning" size={32} color="white" />
-          <Text style={styles.crisisButtonText}>CRISIS{'\n'}SUPPORT</Text>
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.contactsSection}>
-        <Text style={styles.contactsTitle}>Contacts</Text>
-        
-        <TouchableOpacity style={styles.contactButton} onPress={handlePhoneCall}>
-          <View style={styles.contactContent}>
-            <Ionicons name="call" size={24} color="#27AE60" />
-            <Text style={styles.contactText}>555-123-4567</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.contactButton} onPress={handleTextMessage}>
-          <View style={styles.contactContent}>
-            <Ionicons name="chatbubble" size={24} color="#4A90E2" />
-            <Text style={styles.contactText}>Text SUPPORT to 12345</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
       <View style={styles.additionalResources}>
         <Text style={styles.resourcesTitle}>NTU Resources</Text>
         
@@ -132,6 +93,31 @@ const CrisisSupportScreen = () => {
             <Text style={styles.resourceText}>UWO-incidentsupport@ntu.edu.sg</Text>
           </TouchableOpacity>
         </View>
+      </View>
+
+      <TouchableOpacity style={styles.crisisButton} onPress={handleCrisisSupport}>
+        <View style={styles.crisisButtonContent}>
+          <Ionicons name="warning" size={32} color="white" />
+          <Text style={styles.crisisButtonText}>CRISIS{'\n'}SUPPORT</Text>
+        </View>
+      </TouchableOpacity>
+
+      <View style={styles.contactsSection}>
+        <Text style={styles.contactsTitle}>Contacts</Text>
+        
+        <TouchableOpacity style={styles.contactButton} onPress={handlePhoneCall}>
+          <View style={styles.contactContent}>
+            <Ionicons name="call" size={24} color="#27AE60" />
+            <Text style={styles.contactText}>555-123-4567</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.contactButton} onPress={handleTextMessage}>
+          <View style={styles.contactContent}>
+            <Ionicons name="chatbubble" size={24} color="#4A90E2" />
+            <Text style={styles.contactText}>Text SUPPORT to 12345</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.additionalResources}>
