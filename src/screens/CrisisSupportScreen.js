@@ -73,28 +73,168 @@ const CrisisSupportScreen = () => {
       </View>
 
       <View style={styles.additionalResources}>
-        <Text style={styles.resourcesTitle}>Additional Resources</Text>
+        <Text style={styles.resourcesTitle}>NTU Resources</Text>
         
-        <View style={styles.resourceItem}>
-          <Ionicons name="shield" size={20} color="#4A90E2" />
-          <Text style={styles.resourceText}>National Suicide Prevention Lifeline: 988</Text>
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>University Counselling Centre</Text>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('tel:67904462')}
+          >
+            <Ionicons name="call" size={18} color="#4A90E2" />
+            <Text style={styles.resourceText}>6790 4462 (Office Hours)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('tel:69047041')}
+          >
+            <Ionicons name="call" size={18} color="#FF6B35" />
+            <Text style={styles.resourceText}>6904 7041 (After hours - Psychological emergency)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('mailto:UWC-students@ntu.edu.sg')}
+          >
+            <Ionicons name="mail" size={18} color="#27AE60" />
+            <Text style={styles.resourceText}>UWC-students@ntu.edu.sg</Text>
+          </TouchableOpacity>
+          <Text style={styles.addressText}>#02-01 University Health Service{'\n'}36 Nanyang Avenue{'\n'}Singapore 639801</Text>
         </View>
-        
-        <View style={styles.resourceItem}>
-          <Ionicons name="heart" size={20} color="#E91E63" />
-          <Text style={styles.resourceText}>Crisis Text Line: Text HOME to 741741</Text>
+
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>NTU Psychological Crisis Hotline</Text>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('tel:65141911')}
+          >
+            <Ionicons name="call" size={18} color="#E91E63" />
+            <Text style={styles.resourceText}>6514-1911</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('mailto:UWO-incidentsupport@ntu.edu.sg')}
+          >
+            <Ionicons name="mail" size={18} color="#27AE60" />
+            <Text style={styles.resourceText}>UWO-incidentsupport@ntu.edu.sg</Text>
+          </TouchableOpacity>
         </View>
+      </View>
+
+      <View style={styles.additionalResources}>
+        <Text style={styles.resourcesTitle}>Community Resources</Text>
         
-        <View style={styles.resourceItem}>
-          <Ionicons name="people" size={20} color="#8E44AD" />
-          <Text style={styles.resourceText}>Campus Counseling Center: Available 24/7</Text>
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:65366366')}
+        >
+          <Ionicons name="call" size={18} color="#4A90E2" />
+          <Text style={styles.resourceText}>Counselling & Care Centre: 6536 6366</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:63861928')}
+        >
+          <Ionicons name="call" size={18} color="#8E44AD" />
+          <Text style={styles.resourceText}>Silver Ribbon: 6386 1928</Text>
+        </TouchableOpacity>
+        
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>Institute of Mental Health</Text>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('tel:63892222')}
+          >
+            <Ionicons name="call" size={18} color="#E91E63" />
+            <Text style={styles.resourceText}>6389 2222 (24 Hr Emergency Helpline)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.resourceItem}
+            onPress={() => Linking.openURL('tel:63892200')}
+          >
+            <Ionicons name="call" size={18} color="#4A90E2" />
+            <Text style={styles.resourceText}>6389 2200 (Appointments only)</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:18007389595')}
+        >
+          <Ionicons name="call" size={18} color="#27AE60" />
+          <Text style={styles.resourceText}>Mount Elizabeth-Charter's Helpline: 1800 738 9595 (24 Hr)</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:69782728')}
+        >
+          <Ionicons name="call" size={18} color="#8E44AD" />
+          <Text style={styles.resourceText}>CARE Singapore: 6978 2728</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:18002214444')}
+        >
+          <Ionicons name="call" size={18} color="#FF6B35" />
+          <Text style={styles.resourceText}>Samaritans of Singapore (SOS): 1800 221 4444 (24 Hr)</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.resourceItem}
+          onPress={() => Linking.openURL('tel:18002837019')}
+        >
+          <Ionicons name="call" size={18} color="#4A90E2" />
+          <Text style={styles.resourceText}>Singapore Association for Mental Health: 1800 283 7019 (9am-6pm, Mon-Fri)</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.additionalResources}>
+        <Text style={styles.resourcesTitle}>Virtual Resources</Text>
+        
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>eC2.sg by Fei Yue Community Services</Text>
+          <Text style={styles.resourceDescription}>Free counselling chat room for Singaporean youths and young adults</Text>
+          <Text style={styles.resourceDescription}>Monday to Friday, 2:00 PM to 5:30 PM</Text>
+          <TouchableOpacity 
+            style={styles.linkButton}
+            onPress={() => Linking.openURL('https://fycs.org/ec2-sg/')}
+          >
+            <Ionicons name="link" size={18} color="#4A90E2" />
+            <Text style={styles.linkText}>https://fycs.org/ec2-sg/</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>Silver Ribbon (Singapore)</Text>
+          <Text style={styles.resourceDescription}>Free video call counselling for individuals struggling with mental health</Text>
+          <TouchableOpacity 
+            style={styles.linkButton}
+            onPress={() => Linking.openURL('https://www.silverribbonsingapore.com/ccs.html')}
+          >
+            <Ionicons name="link" size={18} color="#8E44AD" />
+            <Text style={styles.linkText}>https://www.silverribbonsingapore.com/ccs.html</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.resourceSubsection}>
+          <Text style={styles.subsectionTitle}>Community Mental Health Team (CHAT)</Text>
+          <Text style={styles.resourceDescription}>Free and confidential mental health checks for Singaporean youths aged 16-30</Text>
+          <TouchableOpacity 
+            style={styles.linkButton}
+            onPress={() => Linking.openURL('https://www.chat.mentalhealth.sg/get-help/make-chat-referral/')}
+          >
+            <Ionicons name="link" size={18} color="#27AE60" />
+            <Text style={styles.linkText}>https://www.chat.mentalhealth.sg/get-help/make-chat-referral/</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.emergencyInfo}>
         <Text style={styles.emergencyTitle}>In Case of Emergency</Text>
         <Text style={styles.emergencyText}>
-          If you or someone you know is in immediate danger, please call 911 or go to your nearest emergency room.
+          If you or someone you know is in immediate danger, please call 995 (Singapore Emergency Services) or go to your nearest emergency room.
         </Text>
       </View>
     </ScrollView>
@@ -204,6 +344,51 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     flex: 1,
   },
+  resourceSubsection: {
+    marginTop: 15,
+    marginBottom: 10,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#e9ecef',
+  },
+  subsectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2c3e50',
+    marginBottom: 10,
+  },
+  addressText: {
+    fontSize: 13,
+    color: '#666',
+    marginTop: 8,
+    marginLeft: 33,
+    fontStyle: 'italic',
+    lineHeight: 20,
+  },
+  resourceDescription: {
+    fontSize: 13,
+    color: '#666',
+    marginTop: 5,
+    marginLeft: 0,
+    lineHeight: 18,
+  },
+  linkButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e9ecef',
+  },
+  linkText: {
+    fontSize: 13,
+    color: '#4A90E2',
+    marginLeft: 10,
+    flex: 1,
+    textDecorationLine: 'underline',
+  },
   emergencyInfo: {
     backgroundColor: '#FFE6E6',
     margin: 15,
@@ -226,3 +411,4 @@ const styles = StyleSheet.create({
 });
 
 export default CrisisSupportScreen;
+
