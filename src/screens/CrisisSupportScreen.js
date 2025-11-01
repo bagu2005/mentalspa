@@ -48,7 +48,7 @@ const CrisisSupportScreen = () => {
       </View>
 
       {/* Resources sections moved to top for immediate visibility */}
-      <View style={styles.additionalResources}>
+      <View style={[styles.additionalResources, { backgroundColor: '#E3F2FD', borderLeftWidth: 4, borderLeftColor: '#4A90E2' }]}>
         <Text style={styles.resourcesTitle}>NTU Resources</Text>
         
         <View style={styles.resourceSubsection}>
