@@ -47,6 +47,7 @@ const CrisisSupportScreen = () => {
         <Text style={styles.title}>Crisis Support</Text>
       </View>
 
+      {/* Resources sections moved to top for immediate visibility */}
       <View style={styles.additionalResources}>
         <Text style={styles.resourcesTitle}>NTU Resources</Text>
         
